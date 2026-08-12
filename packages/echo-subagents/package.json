@@ -1,0 +1,19 @@
+{
+  "name": "echo-subagents",
+  "version": "0.1.0",
+  "description": "Delegate tasks to specialized subagents with isolated context, via subprocess pi invocations",
+  "keywords": [
+    "pi-package"
+  ],
+  "type": "module",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "pi": {
+    "extensions": [
+      "."
+    ]
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "^0.84.0"
+  }
+}

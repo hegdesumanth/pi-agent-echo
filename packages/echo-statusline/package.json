@@ -1,0 +1,22 @@
+{
+  "name": "echo-statusline",
+  "version": "0.1.0",
+  "description": "Configurable status line rendered from one shell command's output",
+  "keywords": [
+    "pi-package"
+  ],
+  "type": "module",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "pi": {
+    "extensions": [
+      "."
+    ]
+  },
+  "dependencies": {
+    "echo-core": "^0.1.0"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "^0.84.0"
+  }
+}

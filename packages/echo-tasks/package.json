@@ -1,0 +1,19 @@
+{
+  "name": "echo-tasks",
+  "version": "0.1.0",
+  "description": "Background job tool with pollable status (run_task/task_status/kill_task) plus a /tasks command",
+  "keywords": [
+    "pi-package"
+  ],
+  "type": "module",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "pi": {
+    "extensions": [
+      "."
+    ]
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "^0.84.0"
+  }
+}

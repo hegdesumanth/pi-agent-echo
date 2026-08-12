@@ -1,0 +1,16 @@
+node_modules/
+dist/
+*.log
+.env
+
+# Pi runtime state — session transcripts and per-machine mode flag should not be committed.
+# Note: .pi/echo/permissions.json is intentionally NOT ignored — permission policy is a
+# team decision worth version-controlling.
+.pi/sessions/
+.pi/echo/state.json
+
+# Internal build-process notes — useful locally, not meant to ship publicly.
+/PROGRESS.md
+/CLAUDE.md
+/IMPLEMENTATION_PLAN.md
+/docs/testing/

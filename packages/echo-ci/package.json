@@ -1,0 +1,24 @@
+{
+  "name": "echo-ci",
+  "version": "0.1.0",
+  "description": "CI/headless ergonomics wrapper around pi's --mode json -p print mode: structured summary + documented exit codes",
+  "type": "module",
+  "bin": {
+    "echo-ci": "dist/src/cli.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test dist/test/parse-events.test.js"
+  },
+  "dependencies": {
+    "cross-spawn": "^7.0.6"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "^0.84.0"
+  },
+  "devDependencies": {
+    "@earendil-works/pi-coding-agent": "^0.84.0",
+    "@types/cross-spawn": "^6.0.6",
+    "typescript": "^5.7.0"
+  }
+}

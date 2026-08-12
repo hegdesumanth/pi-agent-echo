@@ -1,0 +1,19 @@
+{
+  "name": "echo-core",
+  "version": "0.1.0",
+  "description": "Shared types, permission-decision logic, and policy/state file I/O for echo's Pi packages",
+  "type": "module",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test dist/test/evaluate.test.js dist/test/io.test.js"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "^0.84.0"
+  },
+  "devDependencies": {
+    "@earendil-works/pi-coding-agent": "^0.84.0",
+    "typescript": "^5.7.0"
+  }
+}

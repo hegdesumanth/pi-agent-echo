@@ -1,0 +1,15 @@
+{
+  "name": "echo-test-status",
+  "version": "0.1.0",
+  "description": "Footer badge reflecting pass/fail from the last test/build bash command",
+  "keywords": ["pi-package"],
+  "type": "module",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "pi": {
+    "extensions": ["."]
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "^0.84.0"
+  }
+}
