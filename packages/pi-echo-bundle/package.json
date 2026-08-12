@@ -1,0 +1,28 @@
+{
+  "name": "pi-echo-bundle",
+  "version": "0.1.0",
+  "description": "Installs and registers all thirteen echo extensions (and the pi-echo-themes theme pack) in one shot — each remains independently installable on its own too",
+  "keywords": ["pi-package"],
+  "type": "module",
+  "pi": {
+    "extensions": ["."]
+  },
+  "dependencies": {
+    "pi-echo-checkpoints": "^0.1.0",
+    "pi-echo-git-status": "^0.1.0",
+    "pi-echo-hooks": "^0.1.0",
+    "pi-echo-mcp-bridge": "^0.1.0",
+    "pi-echo-output-styles": "^0.1.0",
+    "pi-echo-permissions": "^0.1.0",
+    "pi-echo-plan-mode": "^0.1.0",
+    "pi-echo-statusline": "^0.1.0",
+    "pi-echo-subagents": "^0.1.0",
+    "pi-echo-tasks": "^0.1.0",
+    "pi-echo-test-status": "^0.1.0",
+    "pi-echo-themes": "^0.1.0",
+    "pi-echo-todos": "^0.1.0"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "^0.84.0"
+  }
+}

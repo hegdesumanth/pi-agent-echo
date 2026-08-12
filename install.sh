@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 # Convenience installer for people who clone this repo directly. Uses
 # `pi install <local-path>` instead of a raw file copy, since most of these
-# packages depend on echo-core as a real npm package and need the workspace
-# built first for that to resolve.
+# packages depend on pi-echo-core as a real npm package and need the
+# workspace built first for that to resolve.
 #
 # Usage:
-#   ./install.sh                  Install everything (via the echo-bundle umbrella package)
-#   ./install.sh permissions      Install just echo-permissions
-#   ./install.sh echo-permissions Same as above, full name also accepted
-#   ./install.sh --local          Project-local instead of global (default: global)
-#   ./install.sh permissions -l   Combine: one package, project-local
+#   ./install.sh                     Install everything (via the pi-echo-bundle umbrella package)
+#   ./install.sh permissions         Install just pi-echo-permissions
+#   ./install.sh pi-echo-permissions Same as above, full name also accepted
+#   ./install.sh --local             Project-local instead of global (default: global)
+#   ./install.sh permissions -l      Combine: one package, project-local
 #
 # --local scopes to whatever directory YOU run this script from (your own
 # project), not to this echo/ repo itself — the build step below runs inside
@@ -37,8 +37,8 @@ for arg in "$@"; do
 	--help | -h)
 		echo "Usage: ./install.sh [extension-name] [--local]"
 		echo ""
-		echo "  extension-name   Install just one package (e.g. 'permissions' or 'echo-permissions')."
-		echo "                   Omit to install everything via echo-bundle."
+		echo "  extension-name   Install just one package (e.g. 'permissions' or 'pi-echo-permissions')."
+		echo "                   Omit to install everything via pi-echo-bundle."
 		echo "  --local, -l      Install project-local (to your current directory) instead of"
 		echo "                   global (default: global, available in every project)."
 		exit 0
@@ -53,11 +53,11 @@ echo "Installing dependencies and building..."
 (cd "$SCRIPT_DIR" && npm install && npm run build)
 
 if [ -z "$EXTENSION" ]; then
-	TARGET="$SCRIPT_DIR/packages/echo-bundle"
+	TARGET="$SCRIPT_DIR/packages/pi-echo-bundle"
 else
 	case "$EXTENSION" in
-	echo-*) TARGET="$SCRIPT_DIR/packages/$EXTENSION" ;;
-	*) TARGET="$SCRIPT_DIR/packages/echo-$EXTENSION" ;;
+	pi-echo-*) TARGET="$SCRIPT_DIR/packages/$EXTENSION" ;;
+	*) TARGET="$SCRIPT_DIR/packages/pi-echo-$EXTENSION" ;;
 	esac
 fi
 

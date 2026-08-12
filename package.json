@@ -1,5 +1,5 @@
 {
-  "name": "echo-monorepo",
+  "name": "pi-echo-monorepo",
   "version": "0.1.0",
   "private": true,
   "description": "echo — Pi packages that add a permission gate, plan mode, sub-agents, checkpoints, and more to the pi coding agent CLI",
@@ -12,7 +12,7 @@
   "scripts": {
     "build": "npm run build --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
-    "dev:permissions": "pi -e ./packages/echo-permissions -e ./packages/echo-plan-mode"
+    "dev:permissions": "pi -e ./packages/pi-echo-permissions -e ./packages/pi-echo-plan-mode"
   },
   "devDependencies": {
     "@earendil-works/pi-agent-core": "^0.84.0",

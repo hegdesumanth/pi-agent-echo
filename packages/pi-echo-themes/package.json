@@ -1,0 +1,16 @@
+{
+  "name": "pi-echo-themes",
+  "version": "0.1.0",
+  "description": "The echo-signal theme pair (dark/light) plus a matching, theme-adaptive welcome header",
+  "keywords": ["pi-package"],
+  "type": "module",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "pi": {
+    "themes": ["./themes"],
+    "extensions": ["."]
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "^0.84.0"
+  }
+}

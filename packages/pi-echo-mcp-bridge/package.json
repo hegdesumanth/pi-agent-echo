@@ -1,0 +1,23 @@
+{
+  "name": "pi-echo-mcp-bridge",
+  "version": "0.1.0",
+  "description": "Connects to configured MCP servers over stdio and registers their tools as regular Pi tools, gated by pi-echo-permissions like any other tool",
+  "keywords": [
+    "pi-package"
+  ],
+  "type": "module",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "pi": {
+    "extensions": [
+      "."
+    ]
+  },
+  "dependencies": {
+    "pi-echo-core": "^0.1.0",
+    "@modelcontextprotocol/sdk": "^1.30.0"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "^0.84.0"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "pi-echo-permissions",
+  "version": "0.1.0",
+  "description": "A cooperative permission gate for every Pi tool call (allow/ask/deny), with a five-way mode enum (manual/acceptEdits/plan/dontAsk/bypass)",
+  "keywords": [
+    "pi-package"
+  ],
+  "type": "module",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "pi": {
+    "extensions": [
+      "."
+    ]
+  },
+  "dependencies": {
+    "pi-echo-core": "^0.1.0"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "^0.84.0"
+  }
+}

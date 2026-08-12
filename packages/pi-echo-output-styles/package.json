@@ -1,0 +1,22 @@
+{
+  "name": "pi-echo-output-styles",
+  "version": "0.1.0",
+  "description": "Command-driven persona/tone switching (concise/explanatory/learning + custom project styles)",
+  "keywords": [
+    "pi-package"
+  ],
+  "type": "module",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "pi": {
+    "extensions": [
+      "."
+    ]
+  },
+  "dependencies": {
+    "pi-echo-core": "^0.1.0"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "^0.84.0"
+  }
+}
