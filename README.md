@@ -134,10 +134,6 @@ Verified against the actual installed `@earendil-works/pi-coding-agent` package 
 - `docs/MIGRATION.md` — bringing agent definitions, hooks, permission rules, and skills over from another agent CLI with similarly-shaped features.
 - `PROGRESS.md` — the authoritative current-state log: what's built, tested, and published, updated after every session.
 
-## License
-
-[MIT](LICENSE) &copy; Sumanth Hegde
-
 ## 👥 Contributing
 
 `echo` is a real npm-workspaces monorepo — TypeScript, real tests, real builds. To contribute:
@@ -166,6 +162,10 @@ Verified against the actual installed `@earendil-works/pi-coding-agent` package 
 - 💼 LinkedIn: [linkedin.com/in/hegde-sumanth](https://www.linkedin.com/in/hegde-sumanth/)
 - 🐙 GitHub: [github.com/hegdesumanth](https://github.com/hegdesumanth)
 - 🌐 Portfolio: [hegdesumanth.netlify.app](https://hegdesumanth.netlify.app/)
+
+## License
+
+[MIT](LICENSE) &copy; Sumanth Hegde
 
 ---
 
