@@ -15,6 +15,14 @@ A CI/headless ergonomics wrapper around `pi`'s existing `--mode json -p` print m
 
 With a real provider actually completing a turn (verified against `openai-codex`/`gpt-5.5`), a **bare `pi --mode json -p` process — with zero extensions loaded — took ~11-15 seconds to exit after printing `agent_end`/`agent_settled`**, confirmed by comparing against an identical run with an `echo` extension loaded (same delay either way) and a plain `timeout`-wrapped baseline with correctly-captured exit codes (an earlier comparison had been silently wrong: piping through `tail` reports `tail`'s exit code, not `pi`'s). This is native `pi`/provider-connection teardown behavior — not something `pi-echo-ci` or any `echo` package causes or can fix. Practical effect: don't set `--timeout` assuming the process exits the instant the model is done; give it headroom (the real task-relevant work is over once `agent_end` appears in the summary — a timeout killing the process during this native teardown window is a false failure, not evidence the task hung).
 
+## Install
+
+```bash
+npm install -g pi-echo-ci
+```
+
+It's a standalone bin, not a Pi extension — there's no `pi install`/`-e` form. `npm install` (global, for the `pi-echo-ci` command on your PATH) or as a project devDependency both work.
+
 ## Usage
 
 ```

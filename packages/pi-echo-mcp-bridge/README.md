@@ -10,6 +10,23 @@ Built directly on the official `@modelcontextprotocol/sdk`, not an unreviewed th
 
 **A real bug found and fixed during manual testing, not just type-checked:** the initial version connected to MCP servers on `session_start` but never closed those connections. Verified live against a real MCP test server: `pi -e ./packages/pi-echo-mcp-bridge --mode json -p "..."` printed its output correctly but then **hung indefinitely** instead of exiting — the lingering child-process pipes from the open MCP connection kept Node's event loop alive. Fixed by tracking active connections and closing them both on `session_shutdown` and before reconnecting on any subsequent `session_start` (which can fire more than once per process, e.g. on `/reload` — without closing first, each reload would leak the previous run's connections and spawned processes).
 
+## Connection flow
+
+```mermaid
+flowchart TD
+    A["session_start\n(fires again on /reload)"] --> B["Close any already-open\nconnections first"]
+    B --> C["Connect to each configured server\n(10s timeout, in parallel)"]
+    C --> D{"Connected?"}
+    D -->|Yes| E["Register its tools as\nmcp__server__tool"]
+    D -->|No| F["Skip with a warning\n(doesn't block the others)"]
+    E --> G["Footer: N/M mcp"]
+    F --> G
+    G --> H["session_shutdown"]
+    H --> I["Close all connections"]
+```
+
+Closing before reconnecting on every `session_start` (not just on shutdown) is what prevents a `/reload` from leaking the previous run's connections and spawned processes.
+
 ## Usage
 
 Configure servers in `.pi/echo/mcp-servers.json` (project scope) and/or `~/.pi/agent/echo/mcp-servers.json` (global scope; project entries with the same `name` override global ones):

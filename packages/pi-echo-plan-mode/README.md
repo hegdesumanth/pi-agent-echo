@@ -10,6 +10,25 @@ Read-only exploration mode with a model-callable approval gate, adapted from Pi'
 
 `setActiveTools()` is the primary enforcement (the model never even sees `edit`/`write` as callable while plan mode is on — cheapest, best UX). `pi-echo-permissions`' plan-mode branch in `evaluate()` is a deliberate backup, not redundant: it covers cases the tool-swap can't (a call already in flight when `/plan` is invoked mid-turn, an unknown custom/MCP tool this package has no reason to know about, or a state-sync bug). Neither package imports the other — `pi-echo-core`'s `state.json` is the entire integration contract.
 
+## Install
+
+```bash
+pi install npm:pi-echo-plan-mode -l
+```
+
+## Mode transition
+
+```mermaid
+stateDiagram-v2
+    [*] --> Normal
+    Normal --> PlanMode: /plan (saves previousMode)
+    PlanMode --> Normal: exit_plan_mode approved\n(restores previousMode)
+    PlanMode --> PlanMode: exit_plan_mode rejected
+    PlanMode --> Normal: /plan again (cancel)
+```
+
+`previousMode` is captured the instant plan mode is entered and persisted alongside the todo list, so it survives a session resume — exiting always restores whatever mode was actually active before, never a hardcoded default (see the bug entry below for why that distinction matters).
+
 ## Usage
 
 ```

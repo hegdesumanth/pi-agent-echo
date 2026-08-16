@@ -29,21 +29,73 @@ Nothing here makes Pi "safe" in an absolute sense. Every package is a cooperativ
 | `pi-echo-test-status` | Persistent footer badge showing pass/fail (`✓`/`✗`) from the last test/build bash command. |
 | `pi-echo-bundle` | Installs and registers all thirteen extensions above in one shot (plus the `pi-echo-themes` theme pack) — for "give me everything" instead of picking packages individually. |
 
+## How the packages fit together
+
+`pi-echo-core` is the only shared dependency — six packages build directly
+on it, and `pi-echo-bundle` pulls in all thirteen feature packages at once:
+
+```mermaid
+flowchart LR
+    CORE["pi-echo-core"]
+    CORE --> PERM["pi-echo-permissions"]
+    CORE --> PLAN["pi-echo-plan-mode"]
+    CORE --> MCP["pi-echo-mcp-bridge"]
+    CORE --> STATUS["pi-echo-statusline"]
+    CORE --> HOOKS["pi-echo-hooks"]
+    CORE --> STYLES["pi-echo-output-styles"]
+
+    PERM & PLAN & MCP & STATUS & HOOKS & STYLES --> BUNDLE
+    SUB["pi-echo-subagents"] --> BUNDLE
+    CKPT["pi-echo-checkpoints"] --> BUNDLE
+    TASKS["pi-echo-tasks"] --> BUNDLE
+    TODOS["pi-echo-todos"] --> BUNDLE
+    THEMES["pi-echo-themes"] --> BUNDLE
+    GIT["pi-echo-git-status"] --> BUNDLE
+    TEST["pi-echo-test-status"] --> BUNDLE
+    BUNDLE["pi-echo-bundle\n(all 13, one install)"]
+```
+
+`pi-echo-ci` isn't pictured — it's a standalone CLI wrapping `pi`, not a Pi
+extension, so it doesn't depend on `pi-echo-core` or plug into the bundle.
+
 ## Quickstart
 
-Cloned the repo directly? Use `./install.sh` — a small convenience installer that calls `pi install <local-path>` instead of copying files, since several of these packages depend on `pi-echo-core` as a real npm dependency and need the workspace built first:
+Every package is live on the public npm registry — install straight from
+there, no cloning required:
+
+```bash
+npm install -g @earendil-works/pi-coding-agent   # tested against 0.84.0
+
+# Install one package, project-local:
+pi install npm:pi-echo-permissions -l
+pi install npm:pi-echo-plan-mode -l
+
+# ...or everything at once (all 13 feature packages + the theme pack):
+pi install npm:pi-echo-bundle -l
+
+# Plain npm also works, same packages:
+npm install pi-echo-permissions pi-echo-plan-mode
+```
+
+Each of the thirteen feature packages is independently installable — pulling in `pi-echo-permissions` does not require `pi-echo-subagents`, etc. `pi-echo-bundle` is purely additive on top of that (see its own `README.md` for the one real trade-off it makes: Pi's loader sees it as a single extension, not thirteen independently identifiable ones). See each package's own `README.md` for its design note and any real limitations found while building it (several were found by actually running the code against a live `pi` process, not just type-checking — worth reading if you're deciding whether to trust a given package).
+
+### Building from source
+
+For contributing, or trying a change before it's published — clone and use
+the convenience installer, which calls `pi install <local-path>` instead of
+copying files (several packages depend on `pi-echo-core` as a real npm
+dependency and need the workspace built first):
 
 ```bash
 git clone <this repo> && cd echo
 ./install.sh                  # everything, global (available in every project)
 ./install.sh permissions      # just pi-echo-permissions
-./install.sh permissions -l   # just pi-echo-permissions, project-local (to wherever you run this from)
+./install.sh permissions -l   # just pi-echo-permissions, project-local
 ```
 
-Or do it by hand:
+Or by hand:
 
 ```bash
-npm install -g @earendil-works/pi-coding-agent   # tested against 0.84.0
 git clone <this repo> && cd echo && npm install && npm run build
 
 # Try extensions without installing them (temp-loaded for this run only):
@@ -51,14 +103,10 @@ pi -e ./packages/pi-echo-permissions -e ./packages/pi-echo-plan-mode
 # ...or everything at once:
 pi -e ./packages/pi-echo-bundle
 
-# Install for real, project-local:
+# Install for real, project-local, from your local build:
 pi install ./packages/pi-echo-permissions -l
 pi install ./packages/pi-echo-plan-mode -l
-# ...or, once published, everything at once:
-pi install npm:pi-echo-bundle -l
 ```
-
-Each of the thirteen feature packages is independently installable — pulling in `pi-echo-permissions` does not require `pi-echo-subagents`, etc. `pi-echo-bundle` is purely additive on top of that (see its own `README.md` for the one real trade-off it makes: Pi's loader sees it as a single extension, not thirteen independently identifiable ones). See each package's own `README.md` for its design note and any real limitations found while building it (several were found by actually running the code against a live `pi` process, not just type-checking — worth reading if you're deciding whether to trust a given package).
 
 ## What stock Pi doesn't have
 
@@ -84,3 +132,41 @@ Verified against the actual installed `@earendil-works/pi-coding-agent` package 
 
 - `SECURITY.md` — what each package actually protects against, and what it explicitly does not.
 - `docs/MIGRATION.md` — bringing agent definitions, hooks, permission rules, and skills over from another agent CLI with similarly-shaped features.
+- `PROGRESS.md` — the authoritative current-state log: what's built, tested, and published, updated after every session.
+
+## License
+
+[MIT](LICENSE) &copy; Sumanth Hegde
+
+## 👥 Contributing
+
+`echo` is a real npm-workspaces monorepo — TypeScript, real tests, real builds. To contribute:
+
+1. Create a branch: `feature/your-topic` (or `fix/your-topic`)
+2. `npm install && npm run build && npm test` at the repo root before opening a PR
+3. If behavior changes, update the affected package's own `README.md` "Design note" section too
+4. Open a Pull Request with a short description of what changed and why
+
+> 💡 Found a real bug by actually running a package against a live `pi` session? That's the most valuable kind of finding here — several packages' READMEs already document exactly that pattern (a design note plus the bug it caught).
+
+## 🔗 Official Resources
+
+- [Pi repository](https://github.com/earendil-works/pi)
+- [Pi extensions docs](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/docs/extensions.md)
+- [Pi packages docs](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/docs/packages.md)
+- [Pi security docs](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/docs/security.md)
+- [Model Context Protocol](https://modelcontextprotocol.io)
+
+## 📬 Questions?
+
+**Sumanth Hegde**
+
+- 📧 Personal: hegdesumanth8@gmail.com
+- 📧 Work: sumanth.hegde@absyz.com
+- 💼 LinkedIn: [linkedin.com/in/hegde-sumanth](https://www.linkedin.com/in/hegde-sumanth/)
+- 🐙 GitHub: [github.com/hegdesumanth](https://github.com/hegdesumanth)
+- 🌐 Portfolio: [hegdesumanth.netlify.app](https://hegdesumanth.netlify.app/)
+
+---
+
+*Prepared and maintained by **Sumanth Hegde**.*
